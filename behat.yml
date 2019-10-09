@@ -1,0 +1,13 @@
+default:
+  extensions:
+    Laracasts\Behat:
+      env_path: .env.testing
+    Behat\MinkExtension:
+      default_session: laravel
+      laravel: ~
+  suites:
+      test:
+        paths:
+          - "%paths.base%/features/TestPath"
+        contexts:
+          - BehatTests\TestContext
