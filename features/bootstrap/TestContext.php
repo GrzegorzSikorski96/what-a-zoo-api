@@ -18,7 +18,7 @@ class TestContext implements Context
      * @param string $email
      * @param string $username
      */
-    public function userWithEmailAndUsername($email, $username)
+    public function userWithEmailAndUsername($email, $username): void
     {
         Assert::assertEquals($username . '@example.com', $email);
     }
