@@ -9,10 +9,10 @@ use BehatTests\helpers\Requesting;
 use BehatTests\helpers\Users;
 
 /**
- * Class AuthenticationContext
+ * Class RegistrationContext
  * @package BehatTests
  */
-class AuthenticationContext implements Context
+class RegistrationContext implements Context
 {
-    use Users, Requesting;
+    use Requesting, Users;
 }
