@@ -10,4 +10,5 @@ default:
         paths:
           - "%paths.base%/features/TestPath"
         contexts:
-          - BehatTests\TestContext
+          - BehatTests\RoutesContext
+          - BehatTests\AuthenticationContext

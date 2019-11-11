@@ -24,7 +24,8 @@
         "nunomaduro/collision": "^3.0",
         "phpro/grumphp": "^0.15.2",
         "phpunit/phpunit": "^8.0",
-        "symplify/easy-coding-standard": "^6.0"
+        "symplify/easy-coding-standard": "^6.0",
+      "ext-json": "*"
     },
     "config": {
         "optimize-autoloader": true,
