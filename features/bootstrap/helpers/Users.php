@@ -45,9 +45,11 @@ trait Users
      * @Given authenticated by email :email and password :password
      * @param string $email
      * @param string $password
+     * @throws Exception
      */
     public function authenticatedByEmailAndPassword(string $email, string $password): void
     {
+        $this->userWithEmailAndPasswordExists($email, $password);
         $jwtToken = auth()->attempt(['email' => $email, 'password' => $password]);
 
         $this->request->headers->add(['Authorization' => 'Bearer ' . $jwtToken]);
