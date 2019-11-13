@@ -1,6 +1,25 @@
 @users
 
-Feature: Report resolving
+Feature: Users
+
+  @success
+  Scenario: Get users list
+    Given I send request to '/api/users' using 'GET' method
+    And I am logged in as User
+    When request is sent
+    Then the response status code should be 200
+    And response success field should be true
+    And response 'users' field should be array
+
+  @success
+  Scenario: Get user data
+    Given I send request to '/api/user/1' using 'GET' method
+    And I am logged in as User
+    And user with id '1' exists
+    When request is sent
+    Then the response status code should be 200
+    And response success field should be true
+    And response 'users' field should be array
 
   @success
   Scenario: Ban a user

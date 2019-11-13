@@ -44,11 +44,11 @@ trait Requesting
     }
 
     /**
-     * @Given the response status code should be :statusCode
+     * @Given Response status code should be :statusCode
      * @param int $statusCode
      * @return void
      */
-    public function theResponseStatusCodeShouldBe(int $statusCode): void
+    public function responseStatusCodeShouldBe(int $statusCode): void
     {
         Assert::assertEquals($statusCode, $this->response->getStatusCode());
     }
@@ -109,5 +109,15 @@ trait Requesting
     public function responseMessageFieldShouldBe(string $message): void
     {
         Assert::assertEquals(__('messages.' . $message), $this->getResponseContent()['message']);
+    }
+
+    /**
+     * @Given response :field field should be array
+     * @param string $field
+     * @return void
+     */
+    public function responseFieldShouldBeArray(string $field): void
+    {
+        Assert::assertIsArray($this->getResponseContent()['data'][$field]);
     }
 }
