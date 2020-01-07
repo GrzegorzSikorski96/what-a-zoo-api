@@ -44,11 +44,11 @@ trait Requesting
     }
 
     /**
-     * @Given Response status code should be :statusCode
+     * @Given the response status code should be :statusCode
      * @param int $statusCode
      * @return void
      */
-    public function responseStatusCodeShouldBe(int $statusCode): void
+    public function theResponseStatusCodeShouldBe(int $statusCode): void
     {
         Assert::assertEquals($statusCode, $this->response->getStatusCode());
     }
