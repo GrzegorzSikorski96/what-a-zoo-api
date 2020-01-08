@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFailedJobsTable extends Migration
+class CreateZoosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,13 +15,14 @@ class CreateFailedJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('failed_jobs', function (Blueprint $table): void {
+        Schema::create('zoos', function (Blueprint $table): void {
             $table->bigIncrements('id');
-            $table->text('connection');
-            $table->text('queue');
-            $table->longText('payload');
-            $table->longText('exception');
-            $table->timestamp('failed_at')->useCurrent();
+            $table->string('name');
+            $table->decimal('latitude', 6);
+            $table->decimal('longitude', 6);
+
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -30,8 +31,8 @@ class CreateFailedJobsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('failed_jobs');
+        Schema::dropIfExists('zoos');
     }
 }

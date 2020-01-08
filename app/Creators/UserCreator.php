@@ -24,6 +24,7 @@ class UserCreator
             ['email' => $email],
             [
                 'name' => 'testName',
+                'surname' => 'testSurname',
                 'password' => Hash::make($password),
             ]
         );

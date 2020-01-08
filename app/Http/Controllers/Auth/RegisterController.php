@@ -22,7 +22,7 @@ class RegisterController extends Controller
      */
     public function register(Register $request): JsonResponse
     {
-        $this->create($request->only(['name', 'email', 'password', ]));
+        $this->create($request->only(['name', 'surname', 'email', 'password', ]));
 
         return $this->registered()
             ?: $this->apiResponse
@@ -50,6 +50,7 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'surname' => $data['surname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

@@ -8,6 +8,7 @@ Feature: Registration system
     And request data is:
       | key                   | value            |
       | name                  | test             |
+      | surname               | testSurname      |
       | email                 | test@example.com |
       | password              | secret           |
       | password_confirmation | secret           |
@@ -23,6 +24,7 @@ Feature: Registration system
     And request data is:
       | key                   | value            |
       | name                  | test             |
+      | surname               | testSurname      |
       | email                 | test@example.com |
       | password              | secret           |
       | password_confirmation | secret           |
@@ -38,6 +40,7 @@ Feature: Registration system
     And request data is:
       | key                   | value            |
       | name                  | test             |
+      | surname               | testSurname      |
       | email                 | test@example.com |
       | password              | secre            |
       | password_confirmation | secre            |
@@ -53,6 +56,7 @@ Feature: Registration system
     And request data is:
       | key                   | value            |
       | name                  | test             |
+      | surname               | testSurname      |
       | email                 | test@example.com |
       | password              | secret           |
       | password_confirmation | notsecret        |
@@ -65,11 +69,12 @@ Feature: Registration system
   Scenario: Fail: Trying to register account with bad email
     Given I send request to '/api/register' using 'POST' method
     And request data is:
-      | key                   | value    |
-      | name                  | test     |
-      | email                 | bademail |
-      | password              | secret   |
-      | password_confirmation | secret   |
+      | key                   | value       |
+      | name                  | test        |
+      | surname               | testSurname |
+      | email                 | bademail    |
+      | password              | secret      |
+      | password_confirmation | secret      |
     When request is sent
     Then the response status code should be 400
     And response success field should be false
