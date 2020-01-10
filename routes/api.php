@@ -10,6 +10,7 @@ Route::group(
     ],
     function (): void {
         Route::get('/', 'ExceptionController@getEmptyResponse');
+        Route::get('/test', 'TestController@test');
         Route::post('/register', 'Auth\RegisterController@register');
     }
 );

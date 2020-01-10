@@ -54,16 +54,6 @@ trait Requesting
     }
 
     /**
-     * @Given response success field should be :value
-     * @param string $value
-     * @return void
-     */
-    public function responseSuccessFieldShouldBe(string $value): void
-    {
-        Assert::assertEquals($this->getBoolean($value), $this->getResponseContent()['success']);
-    }
-
-    /**
      * @param string $value
      * @return bool
      */
@@ -119,5 +109,20 @@ trait Requesting
     public function responseFieldShouldBeArray(string $field): void
     {
         Assert::assertIsArray($this->getResponseContent()['data'][$field]);
+    }
+
+    /**
+     * @Given response :field field should be :value
+     * @param string $field
+     * @param string $value
+     * @return void
+     */
+    public function responseFieldShouldBe(string $field, string $value): void
+    {
+        if ($value == 'true' || $value == 'false') {
+            Assert::assertEquals($this->getBoolean($value), $this->getResponseContent()[$field]);
+        } else {
+            Assert::assertEquals($value, $this->getResponseContent()['data'][$field]);
+        }
     }
 }

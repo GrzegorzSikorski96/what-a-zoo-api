@@ -54,4 +54,29 @@ trait Users
 
         $this->request->headers->add(['Authorization' => 'Bearer ' . $jwtToken]);
     }
+
+
+    /**
+     * @Given I am logged in as :roleName
+     * @param string $roleName
+     * @throws Exception
+     */
+    public function loggedInAsRole(string $roleName): void
+    {
+        if (auth()->check()) {
+            auth()->logout();
+        }
+
+        $this->authenticatedByEmailAndPassword($roleName . '@example.com', 'secret');
+
+        $user = auth()->user();
+
+        if ($roleName === 'Admin') {
+            $user->is_admin = true;
+        } else {
+            $user->is_admin = false;
+        }
+
+        $user->save();
+    }
 }

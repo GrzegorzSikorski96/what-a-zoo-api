@@ -43,8 +43,8 @@ Feature: Zoos
 
   @fail
   Scenario: Add zoo without coordinates
-    Given I am logged in as Admin
-    And I send request to '/api/zoo/add' using 'POST' method
+    Given I send request to '/api/zoo/add' using 'POST' method
+    And I am logged in as Admin
     And request data is:
       | key | value |
     When request is sent
@@ -53,8 +53,8 @@ Feature: Zoos
 
   @fail
   Scenario: Add zoo with non existing coordinates
-    Given I am logged in as Admin
-    And I send request to '/api/zoo/add' using 'POST' method
+    Given I send request to '/api/zoo/add' using 'POST' method
+    And I am logged in as Admin
     And request data is:
       | key       | value      |
       | name      | newTestZoo |
@@ -66,8 +66,8 @@ Feature: Zoos
 
   @success
   Scenario: Remove zoo
-    Given I am logged in as Admin
-    And I send request to '/api/zoo/remove' using 'DELETE' method
+    Given I send request to '/api/zoo/remove' using 'DELETE' method
+    And I am logged in as Admin
     And request data is:
       | key | value |
       | id  | 1     |
