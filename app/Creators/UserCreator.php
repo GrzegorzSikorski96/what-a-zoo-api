@@ -20,12 +20,14 @@ class UserCreator
      */
     public function createOrReplaceUser(string $email, string $password): void
     {
-        $user = User::withTrashed()->firstOrCreate(
+        $user = User::withTrashed()->updateOrCreate(
             ['email' => $email],
             [
                 'name' => 'testName',
                 'surname' => 'testSurname',
                 'password' => Hash::make($password),
+                'deleted_at' => null,
+                'blocked_at' => null,
             ]
         );
 
@@ -40,17 +42,31 @@ class UserCreator
      */
     public function createOrReplaceUserById(int $id): void
     {
-        $user = User::withTrashed()->firstOrCreate(
-            ['id' => $id],
-            [
-                'name' => 'testName',
-                'email' => 'userwithid' . $id . '@example.com',
-                'surname' => 'testSurname',
-                'password' => Hash::make('secret'),
-            ]
-        );
+        if (User::withTrashed()->find($id)) {
+            $user = User::withTrashed()->updateOrCreate(
+                ['id' => $id],
+                [
+                    'name' => 'testName',
+                    'surname' => 'testSurname',
+                    'password' => Hash::make('secret'),
+                    'deleted_at' => null,
+                    'blocked_at' => null,
+                ]
+            );
+        } else {
+            $user = User::withTrashed()->updateOrCreate(
+                ['id' => $id],
+                [
+                    'name' => 'testName',
+                    'email' => 'userwith' . $id . '@example.com',
+                    'surname' => 'testSurname',
+                    'password' => Hash::make('secret'),
+                    'deleted_at' => null,
+                    'blocked_at' => null,
+                ]
+            );
+        }
 
-        $user->deleted_at = null;
 
         $user->save();
     }
@@ -70,6 +86,8 @@ class UserCreator
      */
     public function removeUserByIdIfExists(int $id): void
     {
-        User::findOrFail($id)->forceDelete();
+        if (User::find($id)) {
+            User::findOrFail($id)->forceDelete();
+        }
     }
 }

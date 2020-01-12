@@ -31,6 +31,37 @@ class UserController extends Controller
     }
 
     /**
+     * @return JsonResponse
+     */
+    public function users(): JsonResponse
+    {
+        $users = $this->userService->users();
+
+        return $this->apiResponse
+            ->setData([
+                'users' => $users,
+            ])
+            ->setSuccessStatus()
+            ->getResponse();
+    }
+
+    /**
+     * @param int $userId
+     * @return JsonResponse
+     */
+    public function user(int $userId): JsonResponse
+    {
+        $user = $this->userService->user($userId);
+
+        return $this->apiResponse
+            ->setData([
+                'user' => $user,
+            ])
+            ->setSuccessStatus()
+            ->getResponse();
+    }
+
+    /**
      * @param int $userId
      * @return JsonResponse
      */
@@ -57,6 +88,26 @@ class UserController extends Controller
             ->setData([
                 'visited' => $visited,
             ])
+            ->setSuccessStatus()
+            ->getResponse();
+    }
+
+    public function ban(int $userId): JsonResponse
+    {
+        $this->userService->ban($userId);
+
+        return $this->apiResponse
+            ->setMessage(__('messages.user.banned.success'))
+            ->setSuccessStatus()
+            ->getResponse();
+    }
+
+    public function unBan(int $userId): JsonResponse
+    {
+        $this->userService->unBan($userId);
+
+        return $this->apiResponse
+            ->setMessage(__('messages.user.unbanned.success'))
             ->setSuccessStatus()
             ->getResponse();
     }

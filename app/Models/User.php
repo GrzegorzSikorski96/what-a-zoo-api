@@ -25,6 +25,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property boolean $is_admin
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property Carbon $blocked_at
  * @property Carbon $deleted_at
  */
 class User extends Authenticatable implements JWTSubject
@@ -43,7 +44,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email', 'password',
+        'name', 'surname', 'email', 'password', 'blocked_at',
     ];
 
     /**

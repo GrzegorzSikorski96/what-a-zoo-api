@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('is_admin')->default(false);
 
+            $table->dateTime('blocked_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
