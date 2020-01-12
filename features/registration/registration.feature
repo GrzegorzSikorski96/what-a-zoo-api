@@ -15,7 +15,7 @@ Feature: Registration system
     When request is sent
     Then the response status code should be 200
     And response success field should be true
-    And response message field should be 'registration.success'
+    And response message should be 'registration.success'
 
   @fail
   Scenario: Fail: Trying to register account with already used email
@@ -31,7 +31,7 @@ Feature: Registration system
     When request is sent
     Then the response status code should be 400
     And response success field should be false
-    And response message field should be 'registration.failed'
+    And response message should be 'registration.failed'
 
   @fail
   Scenario: Fail: Trying to register account with to short password
@@ -47,7 +47,7 @@ Feature: Registration system
     When request is sent
     Then the response status code should be 400
     And response success field should be false
-    And response message field should be 'registration.failed'
+    And response message should be 'registration.failed'
 
   @fail
   Scenario: Fail: Trying to register account with bad passwords
@@ -63,7 +63,7 @@ Feature: Registration system
     When request is sent
     Then the response status code should be 400
     And response success field should be false
-    And response message field should be 'registration.failed'
+    And response message should be 'registration.failed'
 
   @fail
   Scenario: Fail: Trying to register account with bad email
@@ -78,4 +78,4 @@ Feature: Registration system
     When request is sent
     Then the response status code should be 400
     And response success field should be false
-    And response message field should be 'registration.failed'
+    And response message should be 'registration.failed'

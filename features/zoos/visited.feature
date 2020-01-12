@@ -9,7 +9,7 @@ Feature: Visited Zoos
     When request is sent
     Then the response status code should be 200
     And response success field should be true
-    And response 'visited' field should be array
+    And response 'data.visited' field type should be array
 
   @fail
   Scenario: Get list of visited zoos when not logged in
@@ -22,17 +22,18 @@ Feature: Visited Zoos
   Scenario: Get list of friend visited zoos when logged in and user is friend
     Given I send request to '/api/user/1/visited'
     And I am logged in as User
-    And user with id '1' is friend
+    And user with id 1 exist
+    And user with id 1 is friend
     When request is sent
     Then the response status code should be 200
     And response success field should be true
-    And response 'visited' field should be array
+    And response 'data.visited' field type should be array
 
   @fail
   Scenario: Get list of friend visited zoos when logged in and user is not friend
     Given I send request to '/api/user/1/visited'
     And I am logged in as User
-    And user with id '1' is not friend
+    And user with id 1 is not friend
     When request is sent
-    Then the response status code should be 401
+    Then the response status code should be 404
     And response success field should be false

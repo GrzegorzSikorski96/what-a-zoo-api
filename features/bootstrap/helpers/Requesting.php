@@ -8,6 +8,7 @@ use Behat\Gherkin\Node\TableNode;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 use PHPUnit\Framework\Assert;
 
 /**
@@ -70,6 +71,10 @@ trait Requesting
     public function requestDataIs(TableNode $table): void
     {
         foreach ($table->getHash() as $row) {
+            if (preg_match('/(id)/', $row['key'])) {
+                $row['value'] = intval($row['value']);
+            }
+
             $this->request[$row['key']] = $row['value'];
         }
     }
@@ -89,26 +94,26 @@ trait Requesting
      */
     public function responseFieldShouldNotBeEmpty(string $field): void
     {
-        Assert::assertNotEmpty($this->getResponseContent()['data'][$field]);
+        Assert::assertNotEmpty(Arr::get($this->getResponseContent(), $field));
     }
 
     /**
-     * @Given response message field should be :message
+     * @Given response message should be :message
      * @param string $message
      */
     public function responseMessageFieldShouldBe(string $message): void
     {
-        Assert::assertEquals(__('messages.' . $message), $this->getResponseContent()['message']);
+        Assert::assertEquals(__('messages.' . $message), Arr::get($this->getResponseContent(), 'message'));
     }
 
     /**
-     * @Given response :field field should be array
+     * @Given response :field field type should be array
      * @param string $field
      * @return void
      */
     public function responseFieldShouldBeArray(string $field): void
     {
-        Assert::assertIsArray($this->getResponseContent()['data'][$field]);
+        Assert::assertIsArray(Arr::get($this->getResponseContent(), $field));
     }
 
     /**
@@ -120,9 +125,9 @@ trait Requesting
     public function responseFieldShouldBe(string $field, string $value): void
     {
         if ($value == 'true' || $value == 'false') {
-            Assert::assertEquals($this->getBoolean($value), $this->getResponseContent()[$field]);
+            Assert::assertEquals($this->getBoolean($value), Arr::get($this->getResponseContent(), $field));
         } else {
-            Assert::assertEquals($value, $this->getResponseContent()['data'][$field]);
+            Assert::assertEquals($value, Arr::get($this->getResponseContent(), $field));
         }
     }
 }

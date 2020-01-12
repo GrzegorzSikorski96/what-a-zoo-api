@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace BehatTests\helpers;
 
 use App\Creators\UserCreator;
+use App\Models\Friend;
+use Carbon\Carbon;
 use Exception;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 /**
  * Trait Requesting
@@ -78,5 +81,57 @@ trait Users
         }
 
         $user->save();
+    }
+
+    /**
+     * @Given user with id :id is friend
+     * @param int $id
+     */
+    public function userWithIdIsFriend(int $id): void
+    {
+        Friend::updateOrCreate([
+            'user_id' => auth()->id(),
+            'friend_id' => $id,
+        ], [
+            'accepted_at' => Carbon::now()
+        ]);
+    }
+
+    /**
+     * @Given user with id :id is not friend
+     * @param int $id
+     */
+    public function userWithIdIsNotFriend(int $id): void
+    {
+        Friend::updateOrCreate([
+            'user_id' => auth()->id(),
+            'friend_id' => $id,
+        ], [
+            'accepted_at' => null
+        ]);
+    }
+
+    /**
+     * @Given user with id :id exist
+     * @param int $id
+     * @throws BindingResolutionException
+     */
+    public function userWithIdExist(int $id): void
+    {
+        /** @var UserCreator $creator */
+        $creator = app()->make(UserCreator::class);
+        $creator->createOrReplaceUserById($id);
+    }
+
+    /**
+     * @Given user with id :id not exist
+     * @param int $id
+     * @throws BindingResolutionException
+     */
+    public function userWithIdNotExist(int $id): void
+    {
+        /** @var UserCreator $creator */
+        $creator = app()->make(UserCreator::class);
+        $creator->removeUserByIdIfExists($id);
     }
 }

@@ -35,11 +35,41 @@ class UserCreator
     }
 
     /**
+     * @param int $id
+     * @return void
+     */
+    public function createOrReplaceUserById(int $id): void
+    {
+        $user = User::withTrashed()->firstOrCreate(
+            ['id' => $id],
+            [
+                'name' => 'testName',
+                'email' => 'userwithid' . $id . '@example.com',
+                'surname' => 'testSurname',
+                'password' => Hash::make('secret'),
+            ]
+        );
+
+        $user->deleted_at = null;
+
+        $user->save();
+    }
+
+    /**
      * @param string $email
      * @return void
      */
     public function removeUserIfExists(string $email): void
     {
-        User::where('email', $email)->delete();
+        User::where('email', $email)->forceDelete();
+    }
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function removeUserByIdIfExists(int $id): void
+    {
+        User::findOrFail($id)->forceDelete();
     }
 }

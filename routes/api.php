@@ -10,16 +10,45 @@ Route::group(
     ],
     function (): void {
         Route::get('/', 'ExceptionController@getEmptyResponse');
-        Route::get('/test', 'TestController@test');
+        Route::get('/zoo/{zooId}', 'ZooController@zooWithReviews');
         Route::post('/register', 'Auth\RegisterController@register');
     }
 );
 
-Route::group([
 
+Route::group(
+    [
+        'middleware' => ['auth', 'api']
+    ],
+    function (): void {
+        Route::get('/zoos', 'ZooController@zoos');
+        Route::get('/zoos/visited', 'UserController@loggedUserVisitedZoos');
+
+        Route::group(
+            [
+                'middleware' => 'friends',
+            ],
+            function (): void {
+                Route::get('/user/{userId}/visited', 'UserController@visitedById');
+            }
+        );
+
+        Route::group(
+            [
+                'middleware' => 'role.administrator',
+            ],
+            function (): void {
+                Route::post('/zoo/add', 'ZooController@create');
+                Route::delete('/zoo/remove', 'ZooController@remove');
+            }
+        );
+    }
+);
+
+
+Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
-
 ], function ($router): void {
     Route::post('/login', 'AuthController@login');
     Route::post('/logout', 'AuthController@logout');

@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Models\User;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\JWTAuth;
+use Tymon\JWTAuth\Payload;
 
 /**
  * Class TokenService
@@ -23,6 +24,10 @@ class TokenService extends JWTAuth
         return JWTAuth::fromUser($user);
     }
 
+    /**
+     * @return Payload
+     * @throws JWTException
+     */
     public function checkToken()
     {
         return $this->checkOrFail();

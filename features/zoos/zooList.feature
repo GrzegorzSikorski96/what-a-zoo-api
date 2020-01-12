@@ -9,7 +9,7 @@ Feature: Zoos List
     When request is sent
     Then the response status code should be 200
     And response success field should be true
-    And response 'zoos' field should not be empty
+    And response 'data.zoos' field should not be empty
 
   @fail
   Scenario: Get list of all zoos when not logged in

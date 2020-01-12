@@ -13,8 +13,8 @@ Feature: Authentication system
     When request is sent
     Then the response status code should be 200
     And response success field should be true
-    And response 'token' field should not be empty
-    And response 'user' field should not be empty
+    And response 'data.token' field should not be empty
+    And response 'data.user' field should not be empty
 
   @fail
   Scenario: Fail: Login to non existing account

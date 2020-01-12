@@ -19,10 +19,10 @@ class CreateVisitedZoosTable extends Migration
             $table->bigIncrements('id');
 
             $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->bigInteger('zoo_id')->unsigned();
-            $table->foreign('zoo_id')->references('id')->on('zoos');
+            $table->foreign('zoo_id')->references('id')->on('zoos')->onDelete('cascade');
         });
     }
 
