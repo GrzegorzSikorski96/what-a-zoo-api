@@ -38,6 +38,11 @@ class CreateFriendsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('friends');
+        Schema::table('friends', function (Blueprint $table): void {
+            $table->dropForeign('friends_user_id_foreign');
+            $table->dropForeign('friends_friend_id_foreign');
+
+            $table->dropIfExists();
+        });
     }
 }

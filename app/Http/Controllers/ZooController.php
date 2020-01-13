@@ -10,6 +10,7 @@ use App\Http\Requests\Zoo;
 use App\Services\ZooService;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 /**
  * Class ZooController
@@ -102,6 +103,34 @@ class ZooController extends Controller
 
         return $this->apiResponse
             ->setMessage(__('messages.remove.success'))
+            ->setSuccessStatus()
+            ->getResponse();
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function visit(Request $request): JsonResponse
+    {
+        $this->zooService->visit($request->all()['zoo_id']);
+
+        return $this->apiResponse
+            ->setMessage(__('messages.visited.success'))
+            ->setSuccessStatus()
+            ->getResponse();
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function unVisit(Request $request): JsonResponse
+    {
+        $this->zooService->unVisit($request->all()['zoo_id']);
+
+        return $this->apiResponse
+            ->setMessage(__('messages.unVisited.success'))
             ->setSuccessStatus()
             ->getResponse();
     }

@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http;
 
+use App\Http\Middleware\AlreadyReviewed;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\CheckForMaintenanceMode;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\Friends;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\ReviewAuthor;
 use App\Http\Middleware\Roles\Administrator;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
 use App\Http\Middleware\VerifyCsrfToken;
+use App\Http\Middleware\VisitedZoo;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
@@ -88,6 +91,9 @@ class Kernel extends HttpKernel
         'verified' => EnsureEmailIsVerified::class,
         'role.administrator' => Administrator::class,
         'friends' => Friends::class,
+        'visitedZoo' => VisitedZoo::class,
+        'alreadyReviewed' => AlreadyReviewed::class,
+        'reviewAuthor' => ReviewAuthor::class,
     ];
 
     /**

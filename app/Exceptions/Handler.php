@@ -79,6 +79,7 @@ class Handler extends ExceptionHandler
      * @param Request $request
      * @param Exception $exception
      * @return JsonResponse|Response|\Symfony\Component\HttpFoundation\Response
+     * @throws Exception
      */
     public function render($request, Exception $exception)
     {
@@ -106,7 +107,7 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof AccessDeniedHttpException) {
             return $this->apiResponse
-                ->setMessage(__('messages.exceptions.not_found'))
+                ->setMessage(__('messages.exceptions.forbidden'))
                 ->setFailureStatus(403)
                 ->getResponse();
         }

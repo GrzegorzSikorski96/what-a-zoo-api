@@ -11,7 +11,7 @@ use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
 
 /**
- * Trait Requesting
+ * Trait Users
  * @package BehatTests\helpers
  */
 trait Users

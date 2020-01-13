@@ -56,4 +56,20 @@ class Zoo extends Model
     {
         return $this->belongsToMany(User::class, 'visited_zoos', 'zoo_id');
     }
+
+    /**
+     * @return bool
+     */
+    public function isVisited(): bool
+    {
+        return $this->visitedBy()->where('user_id', auth()->id())->exists();
+    }
+
+    /**
+     * @return bool
+     */
+    public function alreadyReviewed(): bool
+    {
+        return $this->reviews()->where('user_id', auth()->id())->exists();
+    }
 }

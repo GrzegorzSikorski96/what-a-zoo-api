@@ -51,6 +51,9 @@ trait Requesting
      */
     public function theResponseStatusCodeShouldBe(int $statusCode): void
     {
+        if ($this->response->getStatusCode() == 500) {
+            dd($this);
+        }
         Assert::assertEquals($statusCode, $this->response->getStatusCode());
     }
 
@@ -126,6 +129,8 @@ trait Requesting
     {
         if ($value == 'true' || $value == 'false') {
             Assert::assertEquals($this->getBoolean($value), Arr::get($this->getResponseContent(), $field));
+        } elseif ($value == 'null') {
+            Assert::assertEquals(null, Arr::get($this->getResponseContent(), $field));
         } else {
             Assert::assertEquals($value, Arr::get($this->getResponseContent(), $field));
         }

@@ -26,6 +26,8 @@ class CreateReviewsTable extends Migration
             $table->bigInteger('zoo_id')->unsigned();
             $table->foreign('zoo_id')->references('id')->on('zoos');
 
+            $table->unique(['user_id', 'zoo_id']);
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -38,6 +40,11 @@ class CreateReviewsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reviews');
+        Schema::table('reviews', function (Blueprint $table): void {
+            $table->dropForeign('reviews_user_id_foreign');
+            $table->dropForeign('reviews_zoo_id_foreign');
+
+            $table->dropIfExists();
+        });
     }
 }

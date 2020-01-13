@@ -10,7 +10,6 @@ Route::group(
     ],
     function (): void {
         Route::get('/', 'ExceptionController@getEmptyResponse');
-        Route::get('/zoo/{zooId}', 'ZooController@zooWithReviews');
         Route::post('/register', 'Auth\RegisterController@register');
     }
 );
@@ -22,6 +21,11 @@ Route::group(
     ],
     function (): void {
         Route::get('/zoos', 'ZooController@zoos');
+        Route::get('/zoo/{zooId}', 'ZooController@zooWithReviews');
+
+
+        Route::post('/visit/zoo', 'ZooController@visit');
+
         Route::get('/zoos/visited', 'UserController@loggedUserVisitedZoos');
         Route::get('/users', 'UserController@users');
         Route::get('/user/{userId}', 'UserController@user');
@@ -32,6 +36,18 @@ Route::group(
             ],
             function (): void {
                 Route::get('/user/{userId}/visited', 'UserController@visitedById');
+            }
+        );
+
+        Route::group(
+            [
+                'middleware' => 'visitedZoo',
+            ],
+            function (): void {
+                Route::post('/unvisit/zoo', 'ZooController@unvisit');
+                Route::post('/zoo/addReview', 'ReviewController@create')->middleware('alreadyReviewed');
+                Route::put('/zoo/editReview', 'ReviewController@edit')->middleware('reviewAuthor');
+                Route::delete('/zoo/editReview', 'ReviewController@edit')->middleware('reviewAuthor');
             }
         );
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateZoosTable extends Migration
+class CreateReportActionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,14 +15,9 @@ class CreateZoosTable extends Migration
      */
     public function up()
     {
-        Schema::create('zoos', function (Blueprint $table): void {
+        Schema::create('report_actions', function (Blueprint $table): void {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->decimal('latitude', 6);
-            $table->decimal('longitude', 6);
-
-            $table->timestamps();
-            $table->softDeletes();
+            $table->string('action');
         });
     }
 
@@ -33,8 +28,6 @@ class CreateZoosTable extends Migration
      */
     public function down(): void
     {
-        Schema::table('zoos', function (Blueprint $table): void {
-            $table->dropIfExists();
-        });
+        Schema::dropIfExists('report_actions');
     }
 }

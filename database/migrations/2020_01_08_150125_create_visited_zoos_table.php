@@ -23,6 +23,8 @@ class CreateVisitedZoosTable extends Migration
 
             $table->bigInteger('zoo_id')->unsigned();
             $table->foreign('zoo_id')->references('id')->on('zoos')->onDelete('cascade');
+
+            $table->unique(['user_id', 'zoo_id']);
         });
     }
 
@@ -33,6 +35,11 @@ class CreateVisitedZoosTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('visited_zoos');
+        Schema::table('visited_zoos', function (Blueprint $table): void {
+            $table->dropForeign('visited_zoos_user_id_foreign');
+            $table->dropForeign('visited_zoos_zoo_id_foreign');
+
+            $table->dropIfExists();
+        });
     }
 }
