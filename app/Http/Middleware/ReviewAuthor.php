@@ -22,7 +22,7 @@ class ReviewAuthor
     {
         $review = Review::findOrFail($request->all()['id']);
 
-        if ($review->author == auth()->user()) {
+        if ($review->author->id == auth()->id() || auth()->user()->is_admin) {
             return $next($request);
         }
 

@@ -30,6 +30,9 @@ Route::group(
         Route::get('/users', 'UserController@users');
         Route::get('/user/{userId}', 'UserController@user');
 
+        Route::delete('/review/remove', 'ReviewController@remove')->middleware('reviewAuthor');
+        Route::put('/zoo/editReview', 'ReviewController@edit')->middleware('reviewAuthor');
+
         Route::group(
             [
                 'middleware' => 'friends',
@@ -46,8 +49,6 @@ Route::group(
             function (): void {
                 Route::post('/unvisit/zoo', 'ZooController@unvisit');
                 Route::post('/zoo/addReview', 'ReviewController@create')->middleware('alreadyReviewed');
-                Route::put('/zoo/editReview', 'ReviewController@edit')->middleware('reviewAuthor');
-                Route::delete('/zoo/editReview', 'ReviewController@edit')->middleware('reviewAuthor');
             }
         );
 

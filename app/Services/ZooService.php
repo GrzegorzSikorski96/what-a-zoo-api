@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Models\Zoo;
+use Exception;
 use Illuminate\Support\Collection;
 
 /**
@@ -59,7 +60,7 @@ class ZooService
 
     /**
      * @param int $zooId
-     * @throws \Exception
+     * @throws Exception
      */
     public function remove(int $zooId): void
     {
@@ -81,10 +82,11 @@ class ZooService
 
     /**
      * @param int $zooId
+     * @param int $userId
      */
-    public function visit(int $zooId): void
+    public function visit(int $zooId, int $userId): void
     {
-        $user = auth()->user();
+        $user = User::findOrFail($userId);
         $zoo = $this->zoo($zooId);
 
         if (!$zoo->isVisited()) {
@@ -94,10 +96,11 @@ class ZooService
 
     /**
      * @param int $zooId
+     * @param int $userId
      */
-    public function unVisit(int $zooId): void
+    public function unVisit(int $zooId, int $userId): void
     {
-        $user = auth()->user();
+        $user = User::findOrFail($userId);
         $zoo = $this->zoo($zooId);
 
         $user->visitedZoos()->detach($zoo);

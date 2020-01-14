@@ -36,4 +36,10 @@ class ReviewService
 
         return $review;
     }
+
+    public function remove(int $id): void
+    {
+        $review = Review::findOrFail($id);
+        $review->delete();
+    }
 }

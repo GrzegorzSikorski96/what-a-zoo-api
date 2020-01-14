@@ -40,6 +40,7 @@ class Review extends Model
         'rating',
         'user_id',
         'zoo_id',
+        'deleted_at'
     ];
 
     public function zoo(): BelongsTo

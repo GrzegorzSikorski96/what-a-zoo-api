@@ -113,7 +113,7 @@ class ZooController extends Controller
      */
     public function visit(Request $request): JsonResponse
     {
-        $this->zooService->visit($request->all()['zoo_id']);
+        $this->zooService->visit($request->all()['zoo_id'], auth()->id());
 
         return $this->apiResponse
             ->setMessage(__('messages.visited.success'))
@@ -127,7 +127,7 @@ class ZooController extends Controller
      */
     public function unVisit(Request $request): JsonResponse
     {
-        $this->zooService->unVisit($request->all()['zoo_id']);
+        $this->zooService->unVisit($request->all()['zoo_id'], auth()->id());
 
         return $this->apiResponse
             ->setMessage(__('messages.unVisited.success'))

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /** @var Factory $factory */
 
-use App\Models\User;
+use App\Models\Zoo;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
 
@@ -19,11 +19,10 @@ use Illuminate\Database\Eloquent\Factory;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(Zoo::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'surname' => $faker->lastName,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'name' => $faker->company,
+        'latitude' => random_int(-90, 90),
+        'longitude' => random_int(-180, 180),
     ];
 });

@@ -66,36 +66,39 @@ Feature: Review
 
   @success
   Scenario: Remove my review
-    Given I send request to '/review/remove' using 'DELETE' method
+    Given I send request to '/api/review/remove' using 'DELETE' method
     And I am logged in as User
-    And review with id '1' exist
+    And review with id 5 exist
+    And review with id 5 author is logged user
     And request data is:
       | key | value |
-      | id  | 1     |
+      | id  | 5     |
     When request is sent
     Then the response status code should be 200
     And response success field should be true
 
   @fail
   Scenario: Remove somebody else reviews as normal user
-    Given I send request to '/review/remove' using 'DELETE' method
+    Given I send request to '/api/review/remove' using 'DELETE' method
     And I am logged in as User
-    And review with id '123' exist
+    And review with id 23 exist
+    And review with id 23 author is not logged user
     And request data is:
       | key | value |
-      | id  | 123   |
+      | id  | 23    |
     When request is sent
-    Then the response status code should be 400
+    Then the response status code should be 403
     And response success field should be false
 
   @success
   Scenario: Remove somebody else reviews as administrator
-    Given I send request to '/review/remove' using 'DELETE' method
+    Given I send request to '/api/review/remove' using 'DELETE' method
     And I am logged in as Admin
-    And review with id '123' exist
+    And review with id 30 exist
+    And review with id 30 author is not logged user
     And request data is:
       | key | value |
-      | id  | 123   |
+      | id  | 30    |
     When request is sent
     Then the response status code should be 200
     And response success field should be true

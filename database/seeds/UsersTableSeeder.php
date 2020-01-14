@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         User::firstOrCreate([
             'name' => 'Administrator',
@@ -24,5 +24,7 @@ class UsersTableSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+
+        factory(User::class, 50)->create();
     }
 }

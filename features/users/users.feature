@@ -15,7 +15,7 @@ Feature: Users
   Scenario: Get user data
     Given I send request to '/api/user/2' using 'GET' method
     And I am logged in as User
-    And user with id 1 exist
+    And user with id 3 exist
     When request is sent
     Then the response status code should be 200
     And response success field should be true

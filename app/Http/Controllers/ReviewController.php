@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Helpers\ApiResponse;
+use App\Http\Requests\IdRequest;
 use App\Http\Requests\Review;
 use App\Services\ReviewService;
 use Illuminate\Http\JsonResponse;
@@ -59,6 +60,16 @@ class ReviewController extends Controller
             ->setData([
                 'edited' => $edited,
             ])
+            ->setSuccessStatus()
+            ->getResponse();
+    }
+
+    public function remove(IdRequest $request): JsonResponse
+    {
+        $this->reviewService->remove($request->all()['id']);
+
+        return $this->apiResponse
+            ->setMessage('messages.review.removed')
             ->setSuccessStatus()
             ->getResponse();
     }
