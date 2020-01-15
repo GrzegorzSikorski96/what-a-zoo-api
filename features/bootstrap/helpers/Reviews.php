@@ -8,6 +8,7 @@ use App\Creators\ReviewCreator;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Webmozart\Assert\Assert;
 
 /**
  * Trait Reviews
@@ -66,5 +67,40 @@ trait Reviews
 
         $review->user_id = $user->id;
         $review->save();
+    }
+
+    /**
+     * @Given Review with id :id not exist
+     * @param $id
+     */
+    public function reviewWithIdNotExist($id): void
+    {
+        if (Review::find($id)) {
+            Review::find($id)->forceDelete();
+        }
+    }
+
+    /**
+     * @Given review with id :id is deleted
+     * @param int $id
+     */
+    public function reviewWithIdIsDeleted(int $id): void
+    {
+        $review = Review::withTrashed()->findOrFail($id);
+
+        Assert::notNull($review->deleted_at);
+    }
+
+    /**
+     * @Given review with id :id author is deleted
+     * @param int $id
+     */
+    public function reviewWithIdAuthorIsDeleted(int $id): void
+    {
+        $review = Review::withTrashed()->findOrFail($id);
+        $author = $review->author()->withTrashed()->firstOrFail();
+
+        $author->deleted_at = null;
+        $author->save();
     }
 }

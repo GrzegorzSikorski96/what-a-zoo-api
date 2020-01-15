@@ -33,11 +33,18 @@ Route::group(
         Route::delete('/review/remove', 'ReviewController@remove')->middleware('reviewAuthor');
         Route::put('/zoo/editReview', 'ReviewController@edit')->middleware('reviewAuthor');
 
+
+        Route::post('/review/report', 'ReportController@create');
+        Route::post('/report/resolve', 'ReportController@resolve');
+
+        Route::get('/news', 'FeedController@loggedUserFeed');
+
         Route::group(
             [
                 'middleware' => 'friends',
             ],
             function (): void {
+                Route::get('/user/{userId}/news', 'FeedController@userFeed');
                 Route::get('/user/{userId}/visited', 'UserController@visitedById');
             }
         );
@@ -61,6 +68,9 @@ Route::group(
                 Route::post('/user/{userId}/unban', 'UserController@unban');
                 Route::post('/zoo/add', 'ZooController@create');
                 Route::delete('/zoo/remove', 'ZooController@remove');
+
+                Route::get('/reports', 'ReportController@reports');
+                Route::get('/report/{id}', 'ReportController@report');
             }
         );
     }

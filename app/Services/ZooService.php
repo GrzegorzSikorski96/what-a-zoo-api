@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\FeedAction;
 use App\Models\User;
 use App\Models\Zoo;
 use Exception;
@@ -13,7 +14,7 @@ use Illuminate\Support\Collection;
  * Class ZooService
  * @package App\Services
  */
-class ZooService
+class ZooService extends BaseService
 {
     /**
      * @param int $zooId
@@ -91,6 +92,7 @@ class ZooService
 
         if (!$zoo->isVisited()) {
             $user->visitedZoos()->syncWithoutDetaching($zoo);
+            $this->feedService->addFeed($userId, $zooId, FeedAction::VISIT);
         }
     }
 
@@ -104,5 +106,7 @@ class ZooService
         $zoo = $this->zoo($zooId);
 
         $user->visitedZoos()->detach($zoo);
+
+        $this->feedService->removeFeed($userId, $zooId, FeedAction::VISIT);
     }
 }

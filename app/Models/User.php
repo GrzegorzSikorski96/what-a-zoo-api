@@ -44,7 +44,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'surname', 'email', 'password', 'blocked_at',
+        'name', 'surname', 'email', 'password', 'blocked_at', 'deleted_at',
     ];
 
     /**
@@ -55,6 +55,11 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function feed(): HasMany
+    {
+        return $this->hasMany(Feed::class, 'user_id');
+    }
 
     /**
      * @return BelongsToMany

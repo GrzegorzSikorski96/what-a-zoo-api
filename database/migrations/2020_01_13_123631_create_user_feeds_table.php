@@ -17,10 +17,17 @@ class CreateUserFeedsTable extends Migration
     {
         Schema::create('user_feeds', function (Blueprint $table): void {
             $table->bigIncrements('id');
-            $table->string('action');
+
+            $table->bigInteger('action_id')->unsigned();
+            $table->foreign('action_id')->references('id')->on('feed_actions');
 
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+
+            $table->bigInteger('zoo_id')->unsigned();
+            $table->foreign('zoo_id')->references('id')->on('zoos');
+
+            $table->unique(['user_id', 'zoo_id', 'action_id']);
 
             $table->timestamps();
         });
@@ -35,6 +42,8 @@ class CreateUserFeedsTable extends Migration
     {
         Schema::table('user_feeds', function (Blueprint $table): void {
             $table->dropForeign('user_feeds_user_id_foreign');
+            $table->dropForeign('user_feeds_zoo_id_foreign');
+            $table->dropForeign('user_feeds_action_id_foreign');
 
             $table->dropIfExists();
         });

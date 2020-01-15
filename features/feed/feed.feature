@@ -9,7 +9,7 @@ Feature: Feed
     When request is sent
     Then the response status code should be 200
     And response success field should be true
-    And response 'news' field should be array
+    And response 'data.news' field should be array
 
   @fail
   Scenario: Get news when not logged in

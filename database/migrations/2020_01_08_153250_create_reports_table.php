@@ -22,6 +22,9 @@ class CreateReportsTable extends Migration
             $table->bigInteger('review_id')->unsigned();
             $table->foreign('review_id')->references('id')->on('reviews');
 
+            $table->bigInteger('reported_by')->unsigned();
+            $table->foreign('reported_by')->references('id')->on('users');
+
             $table->bigInteger('action_id')->unsigned()->nullable();
             $table->foreign('action_id')->references('id')->on('report_actions');
 
@@ -38,6 +41,7 @@ class CreateReportsTable extends Migration
     {
         Schema::table('reports', function (Blueprint $table): void {
             $table->dropForeign('reports_review_id_foreign');
+            $table->dropForeign('reports_reported_by_foreign');
             $table->dropForeign('reports_action_id_foreign');
 
             $table->dropIfExists();
