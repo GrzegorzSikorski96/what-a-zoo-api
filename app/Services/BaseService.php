@@ -10,8 +10,15 @@ namespace App\Services;
  */
 class BaseService
 {
+    /**
+     * @var FeedService
+     */
     protected $feedService;
 
+    /**
+     * BaseService constructor.
+     * @param FeedService $feedService
+     */
     public function __construct(FeedService $feedService)
     {
         $this->feedService = $feedService;

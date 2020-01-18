@@ -92,6 +92,10 @@ class UserController extends Controller
             ->getResponse();
     }
 
+    /**
+     * @param int $userId
+     * @return JsonResponse
+     */
     public function ban(int $userId): JsonResponse
     {
         $this->userService->ban($userId);
@@ -102,12 +106,31 @@ class UserController extends Controller
             ->getResponse();
     }
 
+    /**
+     * @param int $userId
+     * @return JsonResponse
+     */
     public function unBan(int $userId): JsonResponse
     {
         $this->userService->unBan($userId);
 
         return $this->apiResponse
             ->setMessage(__('messages.user.unbanned.success'))
+            ->setSuccessStatus()
+            ->getResponse();
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function friendRequestReceived(): JsonResponse
+    {
+        $invitations = $this->userService->friendRequestReceived();
+
+        return $this->apiResponse
+            ->setData([
+                'invitations' => $invitations
+            ])
             ->setSuccessStatus()
             ->getResponse();
     }

@@ -16,14 +16,21 @@ use Illuminate\Support\Collection;
  */
 class ReportService
 {
+    /**
+     * @param int $id
+     * @return Report
+     */
     public function report(int $id): Report
     {
-        return Report::findOrFail($id);
+        return Report::with(['reportedBy', 'review'])->findOrFail($id);
     }
 
+    /**
+     * @return Collection
+     */
     public function reports(): Collection
     {
-        return Report::all();
+        return Report::with(['reportedBy', 'review'])->get();
     }
 
     /**
@@ -43,6 +50,11 @@ class ReportService
         return $report;
     }
 
+    /**
+     * @param int $reportId
+     * @param int $actionId
+     * @return mixed
+     */
     public function resolve(int $reportId, int $actionId)
     {
         $report = Report::findOrFail($reportId);

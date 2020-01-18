@@ -16,6 +16,11 @@ use Illuminate\Support\Collection;
  */
 class FeedService
 {
+    /**
+     * @param int $userId
+     * @param int $zooId
+     * @param int $actionId
+     */
     public function addFeed(int $userId, int $zooId, int $actionId): void
     {
         $user = User::findOrFail($userId);
@@ -28,6 +33,11 @@ class FeedService
         ]);
     }
 
+    /**
+     * @param int $userId
+     * @param int $zooId
+     * @param int $actionId
+     */
     public function removeFeed(int $userId, int $zooId, int $actionId): void
     {
         if (Feed::where('user_id', $userId)->where('zoo_id', $zooId)->where('action_id', $actionId)->first()) {
@@ -36,6 +46,10 @@ class FeedService
         }
     }
 
+    /**
+     * @param int $userId
+     * @return Collection
+     */
     public function userFeed(int $userId): Collection
     {
         $user = User::findOrFail($userId);
@@ -43,6 +57,9 @@ class FeedService
         return $user->feed;
     }
 
+    /**
+     * @return Collection
+     */
     public function loggedUserFeed(): Collection
     {
         $user = auth()->user();

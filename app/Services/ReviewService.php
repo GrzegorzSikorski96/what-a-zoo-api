@@ -37,6 +37,9 @@ class ReviewService
         return $review;
     }
 
+    /**
+     * @param int $id
+     */
     public function remove(int $id): void
     {
         $review = Review::findOrFail($id);

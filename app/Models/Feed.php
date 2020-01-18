@@ -36,16 +36,25 @@ class Feed extends Model
         'user_id', 'zoo_id', 'action_id',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function zoo(): BelongsTo
     {
         return $this->belongsTo(Zoo::class, 'zoo_id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function action(): BelongsTo
     {
         return $this->belongsTo(FeedAction::class, 'action_id');

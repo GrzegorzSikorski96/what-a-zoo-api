@@ -32,6 +32,10 @@ class ReportController extends Controller
         $this->reportService = $reportService;
     }
 
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
     public function report(int $id): JsonResponse
     {
         $report = $this->reportService->report($id);
@@ -44,6 +48,9 @@ class ReportController extends Controller
             ->getResponse();
     }
 
+    /**
+     * @return JsonResponse
+     */
     public function reports(): JsonResponse
     {
         $reports = $this->reportService->reports();
@@ -72,6 +79,10 @@ class ReportController extends Controller
             ->getResponse();
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function resolve(Request $request): JsonResponse
     {
         $report = $this->reportService->resolve($request->all()['id'], $request->all()['action_id']);

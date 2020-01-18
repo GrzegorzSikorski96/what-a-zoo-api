@@ -30,6 +30,8 @@ Route::group(
 
         Route::get('/users', 'UserController@users');
         Route::get('/user/{userId}', 'UserController@user');
+        Route::get('/user/friends/invitations', 'UserController@friendRequestReceived');
+
 
         Route::get('/news', 'FeedController@loggedUserFeed');
 

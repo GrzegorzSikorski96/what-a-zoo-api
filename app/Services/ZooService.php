@@ -43,7 +43,7 @@ class ZooService extends BaseService
 
         return [
             'zoo' => $zoo,
-            'reviews' => $zoo->reviews,
+            'reviews' => $zoo->reviews()->with('author')->get(),
         ];
     }
 

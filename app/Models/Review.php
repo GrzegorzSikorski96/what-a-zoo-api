@@ -43,16 +43,25 @@ class Review extends Model
         'deleted_at'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function zoo(): BelongsTo
     {
         return $this->belongsTo(Zoo::class, 'zoo_id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * @return HasMany
+     */
     public function reports(): HasMany
     {
         return $this->hasMany(Report::class);

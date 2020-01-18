@@ -64,6 +64,10 @@ class ReviewController extends Controller
             ->getResponse();
     }
 
+    /**
+     * @param IdRequest $request
+     * @return JsonResponse
+     */
     public function remove(IdRequest $request): JsonResponse
     {
         $this->reviewService->remove($request->all()['id']);

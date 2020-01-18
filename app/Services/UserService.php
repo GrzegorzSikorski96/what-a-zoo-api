@@ -23,6 +23,9 @@ class UserService
         return User::findOrFail($userId);
     }
 
+    /**
+     * @return Collection
+     */
     public function users(): Collection
     {
         return User::all();
@@ -39,6 +42,9 @@ class UserService
         return $user->visitedZoos;
     }
 
+    /**
+     * @param int $userId
+     */
     public function ban(int $userId): void
     {
         $user = User::findOrFail($userId);
@@ -47,11 +53,19 @@ class UserService
         $user->save();
     }
 
+    /**
+     * @param int $userId
+     */
     public function unBan(int $userId): void
     {
         $user = User::findOrFail($userId);
 
         $user->blocked_at = null;
         $user->save();
+    }
+
+    public function friendRequestReceived()
+    {
+        return auth()->user()->friendRequestReceived();
     }
 }
