@@ -56,6 +56,9 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+    /**
+     * @return HasMany
+     */
     public function feed(): HasMany
     {
         return $this->hasMany(Feed::class, 'user_id');
@@ -85,21 +88,30 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Review::class);
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function friends(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
             ->wherePivot('accepted_at', '!=', null);
     }
 
-    public function friendRequestSent()
+    /**
+     * @return BelongsToMany
+     */
+    public function friendRequestSent(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
             ->wherePivot('accepted_at', '=', null);
     }
 
-    public function friendRequestReceived()
+    /**
+     * @return BelongsToMany
+     */
+    public function friendRequestReceived(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id')
+        return $this->belongsToMany(User::class, 'friends', 'friend_id')
             ->wherePivot('accepted_at', '=', null);
     }
 

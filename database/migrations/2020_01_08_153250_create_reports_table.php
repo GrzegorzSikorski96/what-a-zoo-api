@@ -20,10 +20,10 @@ class CreateReportsTable extends Migration
             $table->dateTime('solved_at')->nullable();
 
             $table->bigInteger('review_id')->unsigned();
-            $table->foreign('review_id')->references('id')->on('reviews');
+            $table->foreign('review_id')->references('id')->on('reviews')->onDelete('cascade');
 
             $table->bigInteger('reported_by')->unsigned();
-            $table->foreign('reported_by')->references('id')->on('users');
+            $table->foreign('reported_by')->references('id')->on('users')->onDelete('cascade');
 
             $table->bigInteger('action_id')->unsigned()->nullable();
             $table->foreign('action_id')->references('id')->on('report_actions');

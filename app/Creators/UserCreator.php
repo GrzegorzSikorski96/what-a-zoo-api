@@ -67,7 +67,6 @@ class UserCreator
             );
         }
 
-
         $user->save();
     }
 

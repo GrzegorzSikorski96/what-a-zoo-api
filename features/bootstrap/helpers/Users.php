@@ -103,12 +103,9 @@ trait Users
      */
     public function userWithIdIsNotFriend(int $id): void
     {
-        Friend::updateOrCreate([
-            'user_id' => auth()->id(),
-            'friend_id' => $id,
-        ], [
-            'accepted_at' => null
-        ]);
+        if (Friend::whereIn('user_id', [auth()->id(), $id])->whereIn('friend_id', [auth()->id(), $id])->first()) {
+            Friend::whereIn('user_id', [auth()->id(), $id])->whereIn('friend_id', [auth()->id(), $id])->first()->delete();
+        }
     }
 
     /**
@@ -125,6 +122,7 @@ trait Users
 
     /**
      * @Given user with id :id not exist
+     * @Given user with id :id not exists
      * @param int $id
      * @throws BindingResolutionException
      */

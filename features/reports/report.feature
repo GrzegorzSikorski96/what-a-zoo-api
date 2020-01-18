@@ -51,7 +51,6 @@ Feature: Report
     Then the response status code should be 200
     And response success field should be true
 
-
   @success
   Scenario: Solve Report and remove review
     Given I send request to '/api/report/resolve' using 'POST' method

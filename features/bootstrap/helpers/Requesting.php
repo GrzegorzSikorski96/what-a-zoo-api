@@ -51,6 +51,9 @@ trait Requesting
      */
     public function theResponseStatusCodeShouldBe(int $statusCode): void
     {
+        if ($this->response->getStatusCode() == 500) {
+            dd($this);
+        }
         Assert::assertEquals($statusCode, $this->response->getStatusCode());
     }
 

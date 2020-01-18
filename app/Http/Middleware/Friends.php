@@ -21,7 +21,7 @@ class Friends
     {
         $friendId = $request->route()->parameter('userId');
 
-        if (auth()->user()->friends()->where('friend_id', $friendId)->firstOrFail()) {
+        if (auth()->id() == $friendId || auth()->user()->friends()->where('friend_id', $friendId)->orWhere('user_id', $friendId)->firstOrFail()) {
             return $next($request);
         }
 

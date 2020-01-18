@@ -9,7 +9,7 @@ Feature: Friend List
     When request is sent
     Then the response status code should be 200
     And response success field should be true
-    And response 'friends' field should not be empty
+    And response 'data.friends' field type should be array
 
   @fail
   Scenario: Get friends list when unauthenticated

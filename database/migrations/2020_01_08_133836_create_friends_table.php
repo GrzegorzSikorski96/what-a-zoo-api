@@ -20,10 +20,10 @@ class CreateFriendsTable extends Migration
             $table->dateTime('accepted_at')->nullable();
 
             $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->bigInteger('friend_id')->unsigned();
-            $table->foreign('friend_id')->references('id')->on('users');
+            $table->foreign('friend_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unique(['user_id', 'friend_id']);
 

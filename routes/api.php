@@ -14,7 +14,6 @@ Route::group(
     }
 );
 
-
 Route::group(
     [
         'middleware' => ['auth', 'api']
@@ -22,22 +21,23 @@ Route::group(
     function (): void {
         Route::get('/zoos', 'ZooController@zoos');
         Route::get('/zoo/{zooId}', 'ZooController@zooWithReviews');
-
-
+        Route::get('/zoos/visited', 'UserController@loggedUserVisitedZoos');
         Route::post('/visit/zoo', 'ZooController@visit');
 
-        Route::get('/zoos/visited', 'UserController@loggedUserVisitedZoos');
+        Route::delete('/review/remove', 'ReviewController@remove')->middleware('reviewAuthor');
+        Route::post('/review/report', 'ReportController@create');
+        Route::put('/zoo/editReview', 'ReviewController@edit')->middleware('reviewAuthor');
+
         Route::get('/users', 'UserController@users');
         Route::get('/user/{userId}', 'UserController@user');
 
-        Route::delete('/review/remove', 'ReviewController@remove')->middleware('reviewAuthor');
-        Route::put('/zoo/editReview', 'ReviewController@edit')->middleware('reviewAuthor');
-
-
-        Route::post('/review/report', 'ReportController@create');
-        Route::post('/report/resolve', 'ReportController@resolve');
-
         Route::get('/news', 'FeedController@loggedUserFeed');
+
+        Route::get('/friends', 'FriendController@friends');
+        Route::post('/friend/add', 'FriendController@sendFriendRequest');
+        Route::post('/friend/accept', 'FriendController@acceptFriendRequest');
+        Route::post('/friend/reject', 'FriendController@rejectFriendRequest');
+        Route::delete('/friend/remove', 'FriendController@removeFriend');
 
         Route::group(
             [
@@ -70,6 +70,7 @@ Route::group(
                 Route::delete('/zoo/remove', 'ZooController@remove');
 
                 Route::get('/reports', 'ReportController@reports');
+                Route::post('/report/resolve', 'ReportController@resolve');
                 Route::get('/report/{id}', 'ReportController@report');
             }
         );
@@ -83,6 +84,4 @@ Route::group([
 ], function ($router): void {
     Route::post('/login', 'AuthController@login');
     Route::post('/logout', 'AuthController@logout');
-    Route::post('/refresh', 'AuthController@refresh');
-    Route::post('/me', 'AuthController@me');
 });

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 /** @var Factory $factory */
 
-use App\Models\User;
+use App\Models\Report;
+use App\Models\Review;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
 
@@ -19,11 +20,11 @@ use Illuminate\Database\Eloquent\Factory;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'surname' => $faker->lastName,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // password
-    ];
-});
+$factory->define(
+    Report::class,
+    function (Faker $faker) {
+        return [
+            'review_id' => Review::inRandomOrder()->first()->id,
+        ];
+    }
+);

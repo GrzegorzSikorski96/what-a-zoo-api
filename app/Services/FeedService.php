@@ -31,7 +31,7 @@ class FeedService
     public function removeFeed(int $userId, int $zooId, int $actionId): void
     {
         if (Feed::where('user_id', $userId)->where('zoo_id', $zooId)->where('action_id', $actionId)->first()) {
-            $feed = Feed::where('user_id', $userId)->where('zoo_id', $zooId)->where('action_id', $actionId)->get();
+            $feed = Feed::where('user_id', $userId)->where('zoo_id', $zooId)->where('action_id', $actionId)->first();
             $feed->delete();
         }
     }
