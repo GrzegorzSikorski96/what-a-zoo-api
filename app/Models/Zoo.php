@@ -39,6 +39,7 @@ class Zoo extends Model
         'name',
         'latitude',
         'longitude',
+        'address',
     ];
 
     /**
@@ -71,5 +72,10 @@ class Zoo extends Model
     public function alreadyReviewed(): bool
     {
         return $this->reviews()->where('user_id', auth()->id())->exists();
+    }
+
+    public function animals(): HasMany
+    {
+        return $this->hasMany(Animal::class);
     }
 }

@@ -31,9 +31,9 @@ Feature: Visited Zoos
 
   @fail
   Scenario: Get list of friend visited zoos when logged in and user is not friend
-    Given I send request to '/api/user/1/visited'
+    Given I send request to '/api/user/5/visited'
     And I am logged in as User
-    And user with id 1 is not friend
+    And user with id 5 is not friend
     When request is sent
     Then the response status code should be 404
     And response success field should be false

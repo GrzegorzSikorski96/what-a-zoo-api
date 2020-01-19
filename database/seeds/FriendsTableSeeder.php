@@ -18,11 +18,13 @@ class FriendsTableSeeder extends Seeder
     {
         foreach (User::all()->take(20) as $user) {
             foreach (User::all()->random(15) as $friend) {
-                Friend::FirstOrcreate([
-                    'user_id' => $user->id,
-                    'friend_id' => $friend->id,
-                    'accepted_at' => Carbon::now(),
-                ]);
+                if ($friend->id != $user->id) {
+                    Friend::FirstOrcreate([
+                        'user_id' => $user->id,
+                        'friend_id' => $friend->id,
+                        'accepted_at' => Carbon::now(),
+                    ]);
+                }
             }
         }
     }

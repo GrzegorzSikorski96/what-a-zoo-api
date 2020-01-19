@@ -22,7 +22,7 @@ class ZooService extends BaseService
      */
     public function zoo(int $zooId): Zoo
     {
-        return Zoo::findOrFail($zooId);
+        return Zoo::with('animals')->findOrFail($zooId);
     }
 
     /**
@@ -30,7 +30,7 @@ class ZooService extends BaseService
      */
     public function zoos(): Collection
     {
-        return Zoo::all();
+        return Zoo::with('animals')->get();
     }
 
     /**
