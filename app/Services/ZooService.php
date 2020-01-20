@@ -109,4 +109,18 @@ class ZooService extends BaseService
 
         $this->feedService->removeFeed($userId, $zooId, FeedAction::VISIT);
     }
+
+    /**
+     * @return Collection
+     */
+    public function recommended(): Collection
+    {
+        $zoos = $this->zoos();
+
+        foreach ($zoos as $zoo) {
+            $zoo['averageRating'] = $zoo->averageRating();
+        }
+
+        return $zoos->sortByDesc('averageRating')->take(3);
+    }
 }

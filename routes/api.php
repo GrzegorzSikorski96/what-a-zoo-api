@@ -20,6 +20,7 @@ Route::group(
     ],
     function (): void {
         Route::get('/zoos', 'ZooController@zoos');
+        Route::get('/zoos/recommended', 'ZooController@recommended');
         Route::get('/zoo/{zooId}', 'ZooController@zooWithReviews');
         Route::get('/zoos/visited', 'UserController@loggedUserVisitedZoos');
         Route::post('/visit/zoo', 'ZooController@visit');

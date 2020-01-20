@@ -74,8 +74,19 @@ class Zoo extends Model
         return $this->reviews()->where('user_id', auth()->id())->exists();
     }
 
+    /**
+     * @return HasMany
+     */
     public function animals(): HasMany
     {
         return $this->hasMany(Animal::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function averageRating(): string
+    {
+        return $this->reviews()->average('rating');
     }
 }

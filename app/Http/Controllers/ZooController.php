@@ -134,4 +134,19 @@ class ZooController extends Controller
             ->setSuccessStatus()
             ->getResponse();
     }
+
+    /**
+     * @return JsonResponse
+     */
+    public function recommended()
+    {
+        $recommended = $this->zooService->recommended();
+
+        return $this->apiResponse
+            ->setData([
+                'recommended' => $recommended,
+            ])
+            ->setSuccessStatus()
+            ->getResponse();
+    }
 }
