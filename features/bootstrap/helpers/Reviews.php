@@ -61,7 +61,7 @@ trait Reviews
         $review = Review::withTrashed()->findOrFail($id);
         $user = User::where('id', '!=', auth()->id())->inRandomOrder()->first();
 
-        if ($review->zoo->reviews()->where('user_id', $user->id)->exists()) {
+        if ($review->zoo->reviews()->where('user_id', $user->id)->get()) {
             $user->reviews()->where('zoo_id', $review->zoo->id)->forceDelete();
         }
 

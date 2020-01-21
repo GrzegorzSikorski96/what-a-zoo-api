@@ -21,6 +21,9 @@ class CreateZoosTable extends Migration
             $table->float('latitude', 11, 7);
             $table->float('longitude', 11, 7);
             $table->string('address')->nullable();
+            $table->text('description')->nullable();
+            $table->string('wiki_link')->nullable();
+            $table->string('webpage_link')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

@@ -23,7 +23,10 @@ class ZoosTableSeeder extends Seeder
                 'name' => $object->name,
                 'latitude' => floatval($object->latitude),
                 'longitude' => floatval($object->longitude),
-                'address' => $object->address
+                'address' => $object->address,
+                'description' => $object->description,
+                'wiki_link' => $object->wiki_link,
+                'webpage_link' => $object->webpage_link,
             ]);
 
             foreach ($object->animals as $animal) {

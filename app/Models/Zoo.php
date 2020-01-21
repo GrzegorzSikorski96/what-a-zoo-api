@@ -40,6 +40,9 @@ class Zoo extends Model
         'latitude',
         'longitude',
         'address',
+        'description',
+        'webpage_link',
+        'wiki_link',
     ];
 
     /**

@@ -41,8 +41,8 @@ Feature: Report
   Scenario: Solve Report as not offensive
     Given  I send request to '/api/report/resolve' using 'POST' method
     And I am logged in as Admin
-    And user with id 13 exist
-    And report with id 13 reported by user with id 13 about review with id 13 exist
+    And user with id 14 exist
+    And report with id 14 reported by user with id 14 about review with id 14 exist
     And request data is:
       | key       | value |
       | id        | 14    |
