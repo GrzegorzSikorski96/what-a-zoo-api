@@ -8,7 +8,7 @@ use App\Models\Feed;
 use App\Models\FeedAction;
 use App\Models\User;
 use App\Models\Zoo;
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Class FeedService
@@ -48,24 +48,24 @@ class FeedService
 
     /**
      * @param int $userId
-     * @return Collection
+     * @return LengthAwarePaginator
      */
-    public function userFeed(int $userId): Collection
+    public function userFeed(int $userId): LengthAwarePaginator
     {
         $user = User::findOrFail($userId);
 
-        return $user->feed;
+        return $user->feed()->with('action')->orderByDesc('created_at')->paginate(15);
     }
 
     /**
-     * @return Collection
+     * @return LengthAwarePaginator
      */
-    public function loggedUserFeed(): Collection
+    public function loggedUserFeed(): LengthAwarePaginator
     {
         $user = auth()->user();
         $friendsIds = $user->friends->pluck('id')->toArray();
         $friendsIds[] = $user->id;
 
-        return Feed::whereIn('user_id', $friendsIds)->get();
+        return Feed::whereIn('user_id', $friendsIds)->orderByDesc('created_at')->paginate(15);
     }
 }
