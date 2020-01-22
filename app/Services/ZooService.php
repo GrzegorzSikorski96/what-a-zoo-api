@@ -22,7 +22,10 @@ class ZooService extends BaseService
      */
     public function zoo(int $zooId): Zoo
     {
-        return Zoo::with('animals')->findOrFail($zooId);
+        $zoo = Zoo::with('animals')->findOrFail($zooId);
+        $zoo['averageRating'] = $zoo->averageRating();
+
+        return $zoo;
     }
 
     /**
@@ -30,7 +33,13 @@ class ZooService extends BaseService
      */
     public function zoos(): Collection
     {
-        return Zoo::with('animals')->get();
+        $zoos = Zoo::with('animals')->get();
+
+        foreach ($zoos as $zoo) {
+            $zoo['averageRating'] = $zoo->averageRating();
+        }
+
+        return $zoos;
     }
 
     /**
@@ -116,10 +125,6 @@ class ZooService extends BaseService
     public function recommended(): Collection
     {
         $zoos = $this->zoos();
-
-        foreach ($zoos as $zoo) {
-            $zoo['averageRating'] = $zoo->averageRating();
-        }
 
         return $zoos->sortByDesc('averageRating')->take(3);
     }
