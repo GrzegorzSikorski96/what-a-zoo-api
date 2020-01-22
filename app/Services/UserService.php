@@ -66,6 +66,6 @@ class UserService
 
     public function friendRequestReceived()
     {
-        return auth()->user()->friendRequestReceived();
+        return auth()->user()->friendRequestReceived;
     }
 }
