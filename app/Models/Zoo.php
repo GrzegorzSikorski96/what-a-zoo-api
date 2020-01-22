@@ -90,6 +90,10 @@ class Zoo extends Model
      */
     public function averageRating(): string
     {
-        return $this->reviews()->average('rating');
+        if ($this->reviews()->exists()) {
+            return $this->reviews()->average('rating');
+        } else {
+            return "0";
+        }
     }
 }
