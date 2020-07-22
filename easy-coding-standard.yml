@@ -1,0 +1,19 @@
+imports:
+  - { resource: "./vendor/symplify/easy-coding-standard/config/set/php71.yaml" }
+  - { resource: "./vendor/symplify/easy-coding-standard/config/set/clean-code.yaml" }
+  - { resource: "./vendor/symplify/easy-coding-standard/config/set/psr12.yaml" }
+  - { resource: "./vendor/symplify/easy-coding-standard/config/set/psr2.yaml" }
+parameters:
+  exclude_files:
+    - 'bootstrap/cache/*'
+    - 'storage/*'
+  skip:
+    # disable random annotation removal of this Sniff
+    SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment: ~
+    SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessParameterAnnotation: ~
+    SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff.UnusedVariable: ~
+    SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff.ReferencedGeneralException: ~
+    PhpCsFixer\Fixer\Whitespace\LineEndingFixer: ~
+    PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineEndingsSniff: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff: ~

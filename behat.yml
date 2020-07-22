@@ -1,0 +1,53 @@
+default:
+  extensions:
+    Laracasts\Behat:
+      env_path: .env.testing
+    Behat\MinkExtension:
+      default_session: laravel
+      laravel: ~
+  suites:
+    routes:
+      paths:
+        - "%paths.base%/features/routes"
+      contexts:
+        - BehatTests\RoutesContext
+    authentication:
+      paths:
+        - "%paths.base%/features/authentication"
+      contexts:
+        - BehatTests\AuthenticationContext
+    register:
+      paths:
+        - "%paths.base%/features/registration"
+      contexts:
+        - BehatTests\RegistrationContext
+    feed:
+      paths:
+        - "%paths.base%/features/feed"
+      contexts:
+        - BehatTests\FeedContext
+    friends:
+      paths:
+        - "%paths.base%/features/friends"
+      contexts:
+        - BehatTests\FriendsContext
+    reports:
+      paths:
+        - "%paths.base%/features/reports"
+      contexts:
+        - BehatTests\ReportsContext
+    reviews:
+      paths:
+        - "%paths.base%/features/reviews"
+      contexts:
+        - BehatTests\ReviewsContext
+    users:
+      paths:
+        - "%paths.base%/features/users"
+      contexts:
+        - BehatTests\UsersContext
+    zoos:
+      paths:
+        - "%paths.base%/features/zoos"
+      contexts:
+        - BehatTests\ZoosContext
